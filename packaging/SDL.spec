@@ -6,11 +6,16 @@ Group:      Applications/System
 License:    ASL 2.0
 URL:        http://www.tizen.org
 Source0:    %{name}-%{version}.tar.bz2
-BuildRequires:  common
+BuildRequires:  common-apps
 BuildRequires:  zip
 BuildRequires:  desktop-file-utils
-Requires:   wrt-installer
-Requires:   wrt-plugins-ivi
+Requires: pkgmgr
+Requires: crosswalk
+Requires: tizen-extensions-crosswalk
+Requires: pkgmgr-server
+Requires: model-config-ivi
+Requires: tizen-middleware-units
+Requires: tizen-platform-config
 
 %description
 An application for SDL.
@@ -22,9 +27,15 @@ An application for SDL.
 make wgtPkg
 
 %install
-rm -rf %{buildroot}
-%make_install
+#rm -rf %{buildroot}
+make install_obs "OBS=1" DESTDIR="%{?buildroot}"
+
+%post
+su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX014.SDL.wgt -q"
+
+%postun
+su app -c "pkgcmd -u -n JLRPOCX014 -q"
 
 %files
 %defattr(-,root,root,-)
-/opt/usr/apps/.preinstallWidgets/SDL.wgt
+/opt/usr/apps/.preinstallWidgets/JLRPOCX014.SDL.wgt
