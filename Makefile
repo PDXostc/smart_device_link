@@ -1,4 +1,4 @@
-PROJECT = JLRPOCX014.SDL
+PROJECT = JLRPOCX014.smart_device_link
 INSTALL_FILES = images js icon.png index.html
 WRT_FILES = app audio DNA_common css ffw icon.png index.html lib locale config.xml images js manifest.json README.md
 VERSION := 0.0.1
@@ -28,24 +28,24 @@ kill.xwalk:
 	ssh root@$(TIZEN_IP) "pkill xwalk"
 
 kill.feb1:
-	ssh app@$(TIZEN_IP) "pkgcmd -k JLRPOCX014.SDL"
+	ssh app@$(TIZEN_IP) "pkgcmd -k JLRPOCX014.smart_device_link"
 
 run: install
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'SDL' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher -d"
 
 run.feb1: install.feb1
-	ssh app@$(TIZEN_IP) "app_launcher -s JLRPOCX014.SDL -d "
+	ssh app@$(TIZEN_IP) "app_launcher -s JLRPOCX014.smart_device_link -d "
 
 install.feb1: deploy
 ifndef OBS
 	-ssh app@$(TIZEN_IP) "pkgcmd -u -n JLRPOCX014 -q"
-	ssh app@$(TIZEN_IP) "pkgcmd -i -t wgt -p /home/app/JLRPOCX014.SDL.wgt -q"
+	ssh app@$(TIZEN_IP) "pkgcmd -i -t wgt -p /home/app/JLRPOCX014.smart_device_link.wgt -q"
 endif
 
 install: deploy
 ifndef OBS
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'SDL' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/JLRPOCX014.SDL.wgt"
+	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'smart_device_link' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
+	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/JLRPOCX014.smart_device_link.wgt"
 endif
 
 $(PROJECT).wgt : wgt

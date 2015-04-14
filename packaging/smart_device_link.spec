@@ -1,4 +1,4 @@
-Name:       SDL
+Name:       smart_device_link
 Summary:    An SDL app
 Version:    0.0.1
 Release:    1
@@ -18,7 +18,7 @@ Requires: tizen-middleware-units
 Requires: tizen-platform-config
 
 %description
-An application for SDL.
+An application for Smart Device Link.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -31,11 +31,11 @@ make wgtPkg
 make install_obs "OBS=1" DESTDIR="%{?buildroot}"
 
 %post
-su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX014.SDL.wgt -q"
+su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX014.smart_device_link.wgt -q"
 
 %postun
 su app -c "pkgcmd -u -n JLRPOCX014 -q"
 
 %files
 %defattr(-,root,root,-)
-/opt/usr/apps/.preinstallWidgets/JLRPOCX014.SDL.wgt
+/opt/usr/apps/.preinstallWidgets/JLRPOCX014.smart_device_link.wgt
